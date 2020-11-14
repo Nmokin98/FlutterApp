@@ -1,58 +1,53 @@
-// Copyright 2018 The Flutter team. All rights reserved.
-// Use of this source code is governed by a BSD-style license that can be
-// found in the LICENSE file.
+import 'package:flutter/material.dart'; 
 
-import 'package:flutter/material.dart';
-import 'package:english_words/english_words.dart';
+void main () => runApp(MyApp()); //Создание виджета приложения и запуск класса MyApp
 
-void main() => runApp(MyApp());
+class MyApp extends StatelessWidget{ //Класс MyApp не принимающий данные 
 
-class MyApp extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-        return MaterialApp(
-          title: 'Startup Name Generator',
-          home: RandomWords(),
-        );
-  }
-}
-
-class RandomWords extends StatefulWidget {
-  @override
-  _RandomWordsState createState() => _RandomWordsState();
-}
-
-class _RandomWordsState extends State<RandomWords> {
-  final _suggestions = <WordPair>[];
-  final _biggerFont = TextStyle(fontSize: 18.0);
-  @override
-    Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Startup Name Generator'),
-      ),
-      body: _buildSuggestions(),
-    );
-  }
-    Widget _buildSuggestions() {
-      return ListView.builder(
-        padding: EdgeInsets.all(16.0),
-         itemBuilder: /*1*/ (context, i) {
-          if (i.isOdd) return Divider(); /*2*/
-
-          final index = i~/ 2; /*3*/
-          if (index>= _suggestions.length) {
-            _suggestions.addAll(generateWordPairs().take(10));/*4*/           
-          }
-          return _buildRow(_suggestions[index]);
-        });
-    }
-    Widget _buildRow(WordPair pair) {
-      return ListTile(
-        title: Text(
-          pair.asPascalCase,
-          style: _biggerFont,
+  @override//Переопределение метода build 
+  Widget build(BuildContext content){ //build принимает контекст
+    return new MaterialApp( //возращает MaterialApp
+      title: 'MyWords',
+      theme: ThemeData( //Тема на уровне всего приложения 
+        primarySwatch: Colors.orange //Основная палитрца цветов
         ),
-      );
-    }
+        home: Scaffold( //Scaffold набор основныx виджетов
+          appBar: new AppBar( //создание АппБара
+            title: Text('MyWords'), //Заголовок виджет текст
+          ),
+          body: Container(
+            child: MyBody (),
+              ),
+          ),
+        );
+      }
+}
+
+class MyBody extends StatefulWidget {
+  @override
+  createState() => new MyListWords ();
+}
+
+class MyListWords extends State<MyBody> 
+{
+  List <String> Words = ['Apple','Kiwi', 'Lemon', 'Waterlemon', 'Melon', 'Banana', 'peach', 'mandarin'];
+  
+  @override
+  Widget build (BuildContext context) {
+    
+    return ListView.builder( //Виджет возвращает ЛистВью
+      itemCount: Words.length, //Количествоо элементов равно длине массива
+      itemBuilder: (context, i){ //??
+
+    if(i.isOdd) return Divider(); // Если индекс нечётный, то риует границы виджета 
+
+      //final int index = i~/2;
+
+    //if (index >= Words.length) Words.addAll([]);
+
+      return new ListTile(title: new Text(Words[i])); //ЛистВЬю возвращает ListTile(Что это я хз), с виджетом текст
+
+
+    }); 
+  }
 }

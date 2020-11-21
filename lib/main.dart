@@ -17,6 +17,7 @@ class MyApp extends StatelessWidget{ //Класс MyApp не принимающ�
           ),
           body: Container(
             child: MyBody (),
+
               ),
           ),
         );
@@ -30,22 +31,17 @@ class MyBody extends StatefulWidget {
 
 class MyListWords extends State<MyBody> 
 {
-  List <String> Words = ['Apple','Kiwi', 'Lemon', 'Waterlemon', 'Melon', 'Banana', 'peach', 'mandarin'];
+  List <String> Words = ['Apple','Kiwi', 'Lemon', 'Waterlemon', 'Melon', 'Banana', 'Peach', 'Mandarin', 'Tomate', 'Potate', 'Cucumber', 'Orange'];
   
   @override
   Widget build (BuildContext context) {
     
-    return ListView.builder( //Виджет возвращает ЛистВью
+    return ListView.separated( //Виджет возвращает ЛистВью c разделителем между элементами
       itemCount: Words.length, //Количествоо элементов равно длине массива
+      separatorBuilder: (BuildContext context, int index) => Divider( color: Colors.red),
       itemBuilder: (context, i){ //??
 
-    if(i.isOdd) return Divider(); // Если индекс нечётный, то риует границы виджета 
-
-      //final int index = i~/2;
-
-    //if (index >= Words.length) Words.addAll([]);
-
-      return new ListTile(title: new Text(Words[i])); //ЛистВЬю возвращает ListTile(Что это я хз), с виджетом текст
+      return new ListTile( title: new Text(Words[i], style: TextStyle(height: 2, fontSize: 40, color: Colors.blue))); //ЛистВЬю возвращает ListTile(Что это я хз), с виджетом текст
 
 
     }); 
